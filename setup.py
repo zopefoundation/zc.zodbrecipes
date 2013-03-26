@@ -18,6 +18,13 @@ long_description = (
 
 open('doc.txt', 'w').write(long_description)
 
+tests_require = [
+    'zdaemon',
+    'ZODB3',
+    'zope.testing',
+    'zope.proxy',
+    ]
+
 name = "zc.zodbrecipes"
 setup(
     name = name,
@@ -35,18 +42,19 @@ setup(
     namespace_packages = ['zc'],
     install_requires = ['zc.buildout', 'setuptools',
                         'zc.recipe.egg', 'ZConfig >=2.4'],
-    extras_require = dict(test=['zdaemon', 'ZODB3', 'zope.testing',
-                                'zope.proxy']),
+    extras_require = dict(test=tests_require),
     entry_points = {
         'zc.buildout': [
              'server = %s:StorageServer' % name,
              ]
-        },
+         },
     classifiers = [
-       'Framework :: Buildout',
-       'Intended Audience :: Developers',
-       'License :: OSI Approved :: Zope Public License',
-       'Topic :: Software Development :: Build Tools',
-       'Topic :: Software Development :: Libraries :: Python Modules',
-       ],
+        'Framework :: Buildout',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Zope Public License',
+        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        ],
+    test_suite='zc.zodbrecipes.tests.test_suite',
+    tests_require=tests_require,
     )

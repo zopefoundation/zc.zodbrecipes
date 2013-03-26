@@ -21,6 +21,14 @@ import unittest
 import zope.testing
 from zope.testing import doctest, renormalizing
 
+try:
+    from zc.buildout.testing import not_found
+except ImportError:
+    not_found = (re.compile(r'Not found: [^\n]+/(\w|\.)+/\r?\n'), '')
+
+setuptools_or_distribute = (
+    re.compile(r"[d-]  (setuptools|distribute)-"), "setuptools-")
+
 
 def setUp(test):
     zc.buildout.testing.buildoutSetUp(test)
@@ -49,6 +57,8 @@ checker = renormalizing.RENormalizing([
     (re.compile('-\S+-py\d[.]\d(-\S+)?.egg'),
      '-pyN.N.egg',
     ),
+    not_found,
+    setuptools_or_distribute,
     ])
 
 def test_suite():

@@ -225,7 +225,7 @@ aren't captured in a program's logs.
 
 And we get a control script generated in our bin directory:
 
-    >>> cat('bin', 'server')
+    >>> cat('bin', 'server')  # doctest: +NORMALIZE_WHITESPACE
     #!/usr/local/bin/python2.4
     <BLANKLINE>
     import sys
@@ -286,7 +286,7 @@ zdaemon script:
 We can see the zope.event egg present in the control script
 generated in our bin directory:
 
-    >>> cat('bin', 'server')
+    >>> cat('bin', 'server')  # doctest: +NORMALIZE_WHITESPACE
     #!/usr/local/bin/python2.4
     <BLANKLINE>
     import sys
@@ -394,7 +394,7 @@ Now, the parts directory and the control script will be gone:
 
 Instead, the control script will be in the rc directory:
 
-    >>> cat('rc', 'demo-server')
+    >>> cat('rc', 'demo-server')  # doctest: +NORMALIZE_WHITESPACE
     #!/usr/local/bin/python2.4
     <BLANKLINE>
     import sys
@@ -882,15 +882,13 @@ text and the message from the error:
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
-    ... zeo.conf =
-    ...    <bad
+    ... zeo.conf = <bad
     ... ''')
 
     >>> print system(buildout+' -q'),
     Couldn't clean up '/sample-buildout/bin/server'.
     While:
       Installing server.
-    Error: malformed section start (line 2) in:
-    <BLANKLINE>
+    Error: malformed section start (line 1) in:
     <bad
     <BLANKLINE>
