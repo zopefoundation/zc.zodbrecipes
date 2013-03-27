@@ -11,7 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-
+from __future__ import print_function
 import os, re, shutil, sys, tempfile
 import pkg_resources
 
@@ -37,11 +37,15 @@ def setUp(test):
     zc.buildout.testing.install('zc.recipe.egg', test)
     zc.buildout.testing.install('zdaemon', test)
     zc.buildout.testing.install('ZConfig', test)
-    zc.buildout.testing.install('ZODB3', test)
+    zc.buildout.testing.install('ZEO', test)
+    zc.buildout.testing.install('ZODB', test)
+    zc.buildout.testing.install('BTrees', test)
+    zc.buildout.testing.install('persistent', test)
+    zc.buildout.testing.install('zodbpickle', test)
+    zc.buildout.testing.install('six', test)
     zc.buildout.testing.install('zope.proxy', test)
     zc.buildout.testing.install('zope.interface', test)
     zc.buildout.testing.install('zope.exceptions', test)
-    zc.buildout.testing.install('zope.event', test)
     zc.buildout.testing.install('zc.lockfile', test)
     zc.buildout.testing.install('transaction', test)
 
@@ -66,7 +70,7 @@ def test_suite():
         doctest.DocFileSuite(
             'zeo.txt',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
-            checker=checker,
+            checker=checker, globs={'print_function': print_function},
             ),
         
         ))

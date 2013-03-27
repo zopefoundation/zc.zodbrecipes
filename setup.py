@@ -20,7 +20,8 @@ open('doc.txt', 'w').write(long_description)
 
 tests_require = [
     'zdaemon',
-    'ZODB3',
+    'ZODB',
+    'ZEO',
     'zope.testing',
     'zope.proxy',
     ]

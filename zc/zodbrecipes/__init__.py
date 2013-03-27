@@ -16,7 +16,10 @@ import logging, os, shutil
 import zc.recipe.egg
 import zc.buildout
 import ZConfig.schemaless
-import cStringIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 from ZConfig import ConfigurationSyntaxError
 
@@ -142,8 +145,8 @@ class StorageServer:
         zeo_conf = options.get('zeo.conf', '')+'\n'
         try:
             zeo_conf = ZConfig.schemaless.loadConfigFile(
-                cStringIO.StringIO(zeo_conf))
-        except ConfigurationSyntaxError,e:
+                StringIO(zeo_conf))
+        except ConfigurationSyntaxError as e:
             raise zc.buildout.UserError(
                 '%s in:\n%s' % (e,zeo_conf)
                 )
@@ -169,7 +172,7 @@ class StorageServer:
 
         zdaemon_conf = options.get('zdaemon.conf', '')+'\n'
         zdaemon_conf = ZConfig.schemaless.loadConfigFile(
-            cStringIO.StringIO(zdaemon_conf))
+            StringIO(zdaemon_conf))
 
         defaults = {
             'program': "%s -C %s" % (options['runzeo'], zeo_conf_path),
@@ -221,7 +224,7 @@ class StorageServer:
             dest = os.path.join(options['rc-directory'], rc)
             if not (os.path.exists(dest) and open(dest).read() == contents):
                 open(dest, 'w').write(contents)
-                os.chmod(dest, 0755)
+                os.chmod(dest, int('755', 8))
                 logger.info("Generated shell script %r.", dest)
 
         else:
@@ -279,7 +282,7 @@ A runzeo script couldn't be found at:
   %r
 
 You may need to generate a runzeo script using the
-zc.recipe.eggs:script recipe and the ZODB3 egg, or you may need
+zc.recipe.eggs:script recipe and the ZEO egg, or you may need
 to specify the location of a script using the runzeo option.
 """
 
