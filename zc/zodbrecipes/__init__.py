@@ -106,11 +106,12 @@ class StorageServer:
 
             logrotate = options['logrotate']
             if logrotate:
-                open(logrotate, 'w').write(logrotate_template % dict(
-                    logfile=event_log_path,
-                    rc=os.path.join(options['rc-directory'], rc),
-                    conf=zdaemon_conf_path,
-                    ))
+                with open(logrotate, 'w') as file:
+                    file.write(logrotate_template % dict(
+                            logfile=event_log_path,
+                            rc=os.path.join(options['rc-directory'], rc),
+                            conf=zdaemon_conf_path,
+                            ))
                 options.created(logrotate)
 
             pack = options.get('pack')
@@ -203,8 +204,10 @@ class StorageServer:
         self.egg.install()
         requirements, ws = self.egg.working_set()
 
-        open(zeo_conf_path, 'w').write(str(zeo_conf))
-        open(zdaemon_conf_path, 'w').write(str(zdaemon_conf))
+        with open(zeo_conf_path, 'w') as file:
+            file.write(str(zeo_conf))
+        with open(zdaemon_conf_path, 'w') as file:
+            file.write(str(zdaemon_conf))
 
         if options.get('shell-script') == 'true':
             if not os.path.exists(options['zdaemon']):
@@ -222,10 +225,14 @@ class StorageServer:
             contents = "#!/bin/sh\n%s\n" % contents
 
             dest = os.path.join(options['rc-directory'], rc)
-            if not (os.path.exists(dest) and open(dest).read() == contents):
-                open(dest, 'w').write(contents)
-                os.chmod(dest, int('755', 8))
-                logger.info("Generated shell script %r.", dest)
+            if not os.path.exists(dest):
+                with open(dest) as file:
+                    dest_contents = file.read()
+                if not dest_contents == contents:
+                    with open(dest, 'w') as file:
+                        file.write(contents)
+                    os.chmod(dest, int('755', 8))
+                    logger.info("Generated shell script %r.", dest)
 
         else:
             self.egg.install()
