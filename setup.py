@@ -20,9 +20,11 @@ open('doc.txt', 'w').write(long_description)
 
 tests_require = [
     'zdaemon',
-    'ZODB3',
+    'ZEO',
+    'zope.event',
     'zope.testing',
     'zope.proxy',
+    'zodbpickle',
     ]
 
 name = "zc.zodbrecipes"
@@ -40,7 +42,7 @@ setup(
     packages = find_packages('.'),
     include_package_data = True,
     namespace_packages = ['zc'],
-    install_requires = ['zc.buildout', 'setuptools',
+    install_requires = ['zc.buildout', 'setuptools', 'six',
                         'zc.recipe.egg', 'ZConfig >=2.4'],
     extras_require = dict(test=tests_require),
     entry_points = {

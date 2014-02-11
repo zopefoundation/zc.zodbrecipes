@@ -5,8 +5,11 @@ python:
     - 3.2
     - 3.3
 install:
-    - pip install . --use-mirrors
+    - pip install --upgrade setuptools>=1.4
+    - pip install --upgrade zc.buildout>=2.2.1
+    - buildout bootstrap
+    - ./bin/buildout
 script:
-    - python setup.py test -q
+    - ./bin.test -vvv
 notifications:
     email: false

@@ -30,7 +30,8 @@ to import the schema definition that defined the foo section.  Any
 imports are simply copied to the generated configuration file.  When
 we run the buildout:
 
-    >>> print system(buildout), # doctest: +NORMALIZE_WHITESPACE
+    >>> from six import print_
+    >>> print_(system(buildout), end='') # doctest: +NORMALIZE_WHITESPACE
     Installing server.
     zc.zodbrecipes:
     A runzeo script couldn't be found at:
@@ -38,7 +39,7 @@ we run the buildout:
       '/sample-buildout/bin/runzeo'
     <BLANKLINE>
     You may need to generate a runzeo script using the
-    zc.recipe.eggs:script recipe and the ZODB3 egg, or you may need
+    zc.recipe.eggs:script recipe and the ZEO egg, or you may need
     to specify the location of a script using the runzeo option.
     <BLANKLINE>
     Generated script '/sample-buildout/bin/server'.
@@ -54,7 +55,7 @@ zc.recipe.egg:script recipe:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -70,17 +71,10 @@ zc.recipe.egg:script recipe:
     ...    </foo>
     ... ''')
 
-    >>> print system(buildout),
-    Installing zodb.
-    Generated script '/sample-buildout/bin/fstail'.
-    Generated script '/sample-buildout/bin/zeopack'.
+    >>> print_(system(buildout), end='') # doctest: +ELLIPSIS
+    Installing zodb...
     Generated script '/sample-buildout/bin/runzeo'.
-    Generated script '/sample-buildout/bin/zeopasswd'.
-    Generated script '/sample-buildout/bin/zeoctl'.
-    Generated script '/sample-buildout/bin/fsdump'.
-    Generated script '/sample-buildout/bin/fsrefs'.
-    Generated script '/sample-buildout/bin/repozo'.
-    Generated script '/sample-buildout/bin/fsoids'.
+    ...
     Updating server.
 
 We get 2 things.  We get a directory in parts containing ZEO and
@@ -123,7 +117,7 @@ If we wish, we can specify a log file ourselves:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -144,7 +138,7 @@ If we wish, we can specify a log file ourselves:
     ...    </eventlog>
     ... ''')
 
-    >>> print system(buildout),
+    >>> print_(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -178,7 +172,7 @@ But we'll stick with the default:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -194,7 +188,7 @@ But we'll stick with the default:
     ...    </foo>
     ... ''')
 
-    >>> print system(buildout),
+    >>> print_(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -260,7 +254,7 @@ zdaemon script:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -277,7 +271,7 @@ zdaemon script:
     ...    </foo>
     ... ''')
 
-    >>> print system(buildout),
+    >>> print_(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -352,7 +346,7 @@ buildout:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -378,7 +372,7 @@ buildout:
     ... user = bob
     ... ''' % globals())
 
-    >>> print system(buildout),
+    >>> print_(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -472,7 +466,7 @@ in your deployment section to prevent the logrotate config being generated:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -499,7 +493,7 @@ in your deployment section to prevent the logrotate config being generated:
     ... user = bob
     ... ''' % globals())
 
-    >>> print system(buildout),
+    >>> print_(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -520,7 +514,7 @@ If it's more convenient, this can be placed in the [server] section instead:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -547,7 +541,7 @@ If it's more convenient, this can be placed in the [server] section instead:
     ... user = bob
     ... ''' % globals())
 
-    >>> print system(buildout),
+    >>> print_(system(buildout), end='')
     Updating zodb.
     Updating server.
 
@@ -575,7 +569,7 @@ Let's add a pack option:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -602,7 +596,7 @@ Let's add a pack option:
     ... user = bob
     ... ''' % globals())
 
-    >>> print system(buildout+' -D'),
+    >>> print_(system(buildout+' -D'), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -622,7 +616,7 @@ Now, we'll get a crontab file:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -668,7 +662,7 @@ MAILTO variable will be added to the cron file:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -695,7 +689,7 @@ MAILTO variable will be added to the cron file:
     ... user = bob
     ... ''' % globals())
 
-    >>> print system(buildout+' -D'),
+    >>> print_(system(buildout+' -D'), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -729,7 +723,7 @@ value. We also need to cause a zdaemon script to be generated:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [zdaemon]
     ... recipe = zc.recipe.egg:script
@@ -761,7 +755,7 @@ value. We also need to cause a zdaemon script to be generated:
     ... user = bob
     ... ''' % globals())
 
-    >>> print system(buildout+' -D'),
+    >>> print_(system(buildout+' -D'), end='')
     Uninstalling server.
     Updating zodb.
     Installing zdaemon.
@@ -787,7 +781,7 @@ parts. These names determine names of files generated.
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [zdaemon]
     ... recipe = zc.recipe.egg:script
@@ -821,7 +815,7 @@ parts. These names determine names of files generated.
     ... user = bob
     ... ''' % globals())
 
-    >>> print system(buildout+' -D'),
+    >>> print_(system(buildout+' -D'), end='')
     Uninstalling server.
     Updating zodb.
     Updating zdaemon.
@@ -854,7 +848,7 @@ simple, informative message being returned:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
@@ -862,7 +856,7 @@ simple, informative message being returned:
     ...    nothing useful
     ... ''')
 
-    >>> print system(buildout+' -q'),
+    >>> print_(system(buildout+' -q'), end='')
     Couldn't clean up '/sample-buildout/bin/server'.
     While:
       Installing server.
@@ -878,14 +872,14 @@ text and the message from the error:
     ...
     ... [zodb]
     ... recipe = zc.recipe.egg:script
-    ... eggs = ZODB3
+    ... eggs = ZEO
     ...
     ... [server]
     ... recipe = zc.zodbrecipes:server
     ... zeo.conf = <bad
     ... ''')
 
-    >>> print system(buildout+' -q'),
+    >>> print_(system(buildout+' -q'), end='')
     Couldn't clean up '/sample-buildout/bin/server'.
     While:
       Installing server.
