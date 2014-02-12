@@ -9,6 +9,12 @@ Recipes for working with ZODB.
 Changes
 *******
 
+2.0.0 (2014-02-12)
+==================
+
+This release isn't backward compatible
+  It uses ZODB, rather than ZODB3.
+
 - Added Python 3 support
 
 - Changed from ZODB3 to ZODB.
