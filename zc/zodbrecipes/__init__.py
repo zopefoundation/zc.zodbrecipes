@@ -221,7 +221,7 @@ class StorageServer:
             dest = os.path.join(options['rc-directory'], rc)
             if not (os.path.exists(dest) and open(dest).read() == contents):
                 open(dest, 'w').write(contents)
-                os.chmod(dest, 493) # 0755 in octal
+                os.chmod(dest, 0o755)
                 logger.info("Generated shell script %r.", dest)
 
         else:
