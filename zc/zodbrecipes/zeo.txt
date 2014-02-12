@@ -219,15 +219,11 @@ aren't captured in a program's logs.
 
 And we get a control script generated in our bin directory:
 
-    >>> cat('bin', 'server')  # doctest: +NORMALIZE_WHITESPACE
+    >>> cat('bin', 'server')  # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
     #!/usr/local/bin/python2.4
     <BLANKLINE>
     import sys
-    sys.path[0:0] = [
-        '/sample-buildout/eggs/zdaemon-2.0-py2.4.egg',
-        '/sample-buildout/eggs/setuptools-0.6-py2.4.egg',
-        '/sample-buildout/eggs/ZConfig-2.4-py2.4.egg',
-        ]
+    sys.path[0:0] = [...]
     <BLANKLINE>
     <BLANKLINE>
     import zdaemon.zdctl
@@ -280,17 +276,11 @@ zdaemon script:
 We can see the zope.event egg present in the control script
 generated in our bin directory:
 
-    >>> cat('bin', 'server')  # doctest: +NORMALIZE_WHITESPACE
+    >>> cat('bin', 'server')  # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
     #!/usr/local/bin/python2.4
     <BLANKLINE>
     import sys
-    sys.path[0:0] = [
-        '/sample-buildout/eggs/zope.event-2.0-py2.4.egg',
-        '/sample-buildout/eggs/zdaemon-2.0-py2.4.egg',
-        '/sample-buildout/eggs/setuptools-0.6-py2.4.egg',
-        '/sample-buildout/eggs/ZConfig-2.4-py2.4.egg',
-        ]
-    <BLANKLINE>
+    sys.path[0:0] = [...]
     <BLANKLINE>
     import zdaemon.zdctl
     <BLANKLINE>
@@ -388,16 +378,11 @@ Now, the parts directory and the control script will be gone:
 
 Instead, the control script will be in the rc directory:
 
-    >>> cat('rc', 'demo-server')  # doctest: +NORMALIZE_WHITESPACE
+    >>> cat('rc', 'demo-server')  # doctest: +NORMALIZE_WHITESPACE +ELLIPSIS
     #!/usr/local/bin/python2.4
     <BLANKLINE>
     import sys
-    sys.path[0:0] = [
-        '/sample-buildout/eggs/zdaemon-2.0-py2.4.egg',
-        '/sample-buildout/eggs/setuptools-0.6-py2.4.egg',
-        '/sample-buildout/eggs/ZConfig-2.4-py2.4.egg',
-        ]
-    <BLANKLINE>
+    sys.path[0:0] = [...]
     <BLANKLINE>
     import zdaemon.zdctl
     <BLANKLINE>
