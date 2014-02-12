@@ -12,13 +12,15 @@
 #
 ##############################################################################
 
-import logging, os, shutil
-import zc.recipe.egg
-import zc.buildout
-import ZConfig.schemaless
-import cStringIO
-
+from six.moves import cStringIO as StringIO
 from ZConfig import ConfigurationSyntaxError
+
+import ZConfig.schemaless
+import logging
+import os
+import shutil
+import zc.buildout
+import zc.recipe.egg
 
 logger = logging.getLogger('zc.zodbrecipes')
 
@@ -141,9 +143,8 @@ class StorageServer:
 
         zeo_conf = options.get('zeo.conf', '')+'\n'
         try:
-            zeo_conf = ZConfig.schemaless.loadConfigFile(
-                cStringIO.StringIO(zeo_conf))
-        except ConfigurationSyntaxError,e:
+            zeo_conf = ZConfig.schemaless.loadConfigFile(StringIO(zeo_conf))
+        except ConfigurationSyntaxError as e:
             raise zc.buildout.UserError(
                 '%s in:\n%s' % (e,zeo_conf)
                 )
@@ -168,8 +169,7 @@ class StorageServer:
             zeo_conf.sections.append(event_log('STDOUT'))
 
         zdaemon_conf = options.get('zdaemon.conf', '')+'\n'
-        zdaemon_conf = ZConfig.schemaless.loadConfigFile(
-            cStringIO.StringIO(zdaemon_conf))
+        zdaemon_conf = ZConfig.schemaless.loadConfigFile(StringIO(zdaemon_conf))
 
         defaults = {
             'program': "%s -C %s" % (options['runzeo'], zeo_conf_path),
@@ -221,7 +221,7 @@ class StorageServer:
             dest = os.path.join(options['rc-directory'], rc)
             if not (os.path.exists(dest) and open(dest).read() == contents):
                 open(dest, 'w').write(contents)
-                os.chmod(dest, 0755)
+                os.chmod(dest, 0o755)
                 logger.info("Generated shell script %r.", dest)
 
         else:
@@ -279,7 +279,7 @@ A runzeo script couldn't be found at:
   %r
 
 You may need to generate a runzeo script using the
-zc.recipe.eggs:script recipe and the ZODB3 egg, or you may need
+zc.recipe.eggs:script recipe and the ZEO egg, or you may need
 to specify the location of a script using the runzeo option.
 """
 
