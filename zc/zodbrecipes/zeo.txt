@@ -73,8 +73,7 @@ zc.recipe.egg:script recipe:
 
     >>> print_(system(buildout), end='') # doctest: +ELLIPSIS
     Installing zodb...
-    Generated script '/sample-buildout/bin/runzeo'.
-    ...
+    Generated script '/sample-buildout/bin/runzeo'...
     Updating server.
 
 We get 2 things.  We get a directory in parts containing ZEO and

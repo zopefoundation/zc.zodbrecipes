@@ -56,6 +56,7 @@ setup(
         'License :: OSI Approved :: Zope Public License',
         'Topic :: Software Development :: Build Tools',
         'Topic :: Software Development :: Libraries :: Python Modules',
+
         "Natural Language :: English",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.6",
