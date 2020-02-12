@@ -9,6 +9,14 @@ Recipes for working with ZODB.
 Changes
 *******
 
+2.1.0 (unreleased)
+==================
+
+- Add support for Python 3.5 up to Python 3.8.
+
+- Drop support for Python 2,6, 3.2 and 3.3.
+
+
 2.0.0 (2014-02-12)
 ==================
 

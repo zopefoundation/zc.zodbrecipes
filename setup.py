@@ -10,7 +10,7 @@ long_description = (
     'Detailed Documentation\n'
     '**********************\n'
     + '\n' +
-    read('zc', 'zodbrecipes', 'zeo.txt')
+    read('src', 'zc', 'zodbrecipes', 'zeo.txt')
     + '\n' +
     'Download\n'
     '**********************\n'
@@ -24,13 +24,14 @@ tests_require = [
     'zope.event',
     'zope.testing',
     'zope.proxy',
+    'zope.testrunner',
     'zodbpickle',
     ]
 
 name = "zc.zodbrecipes"
 setup(
     name = name,
-    version='2.0.0',
+    version='2.1.0.dev0',
     author = "Jim Fulton",
     author_email = "jim@zope.com",
     description = "ZC Buildout recipes for ZODB",
@@ -39,11 +40,17 @@ setup(
     url='http://svn.zope.org/'+name,
     long_description=long_description,
 
-    packages = find_packages('.'),
+    packages = find_packages('src'),
+    package_dir={'': 'src'},
     include_package_data = True,
     namespace_packages = ['zc'],
-    install_requires = ['zc.buildout', 'setuptools', 'six',
-                        'zc.recipe.egg', 'ZConfig >=2.4'],
+    install_requires = [
+        'zc.buildout',
+        'setuptools',
+        'six',
+        'zc.recipe.egg',
+        'ZConfig >=2.4'
+    ],
     extras_require = dict(test=tests_require),
     entry_points = {
         'zc.buildout': [
@@ -59,11 +66,12 @@ setup(
 
         "Natural Language :: English",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.2",
-        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         ],
     test_suite='zc.zodbrecipes.tests.test_suite',
     tests_require=tests_require,
