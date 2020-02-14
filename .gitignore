@@ -1,9 +1,11 @@
 *.egg
+*.egg-info
 *.pyc
 /.installed.cfg
-/*.egg-info
 /bin
 /develop-eggs
 /doc.txt
 /eggs
 /parts
+/.tox
+/.coverage
