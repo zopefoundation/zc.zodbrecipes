@@ -248,7 +248,7 @@ class StorageServer:
             else:
                 try:
                     port = int(address)
-                except:  # noqa: E722
+                except ValueError:
                     address = '-U '+address
                 else:
                     address = '-p '+address
