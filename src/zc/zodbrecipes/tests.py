@@ -18,7 +18,6 @@ import doctest
 import re
 import unittest
 import zc.buildout.testing
-import zope.testing  # noqa: F401
 
 try:
     from zc.buildout.testing import not_found
