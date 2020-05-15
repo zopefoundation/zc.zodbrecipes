@@ -37,7 +37,7 @@ setup(
     description="ZC Buildout recipes for ZODB",
     license="ZPL 2.1",
     keywords="zodb buildout",
-    url='http://svn.zope.org/'+name,
+    url='https://github.com/zopefoundation/zc.zodbrecipes',
     long_description=long_description,
 
     packages=find_packages('src'),
