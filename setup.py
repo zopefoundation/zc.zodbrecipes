@@ -1,8 +1,10 @@
 import os
 from setuptools import setup, find_packages
 
+
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+
 
 long_description = (
     read('README.txt')
@@ -16,8 +18,6 @@ long_description = (
     '**********************\n'
     )
 
-open('doc.txt', 'w').write(long_description)
-
 tests_require = [
     'zdaemon',
     'ZEO',
@@ -30,34 +30,34 @@ tests_require = [
 
 name = "zc.zodbrecipes"
 setup(
-    name = name,
+    name=name,
     version='2.1.0.dev0',
-    author = "Jim Fulton",
-    author_email = "jim@zope.com",
-    description = "ZC Buildout recipes for ZODB",
-    license = "ZPL 2.1",
-    keywords = "zodb buildout",
+    author="Jim Fulton",
+    author_email="jim@zope.com",
+    description="ZC Buildout recipes for ZODB",
+    license="ZPL 2.1",
+    keywords="zodb buildout",
     url='http://svn.zope.org/'+name,
     long_description=long_description,
 
-    packages = find_packages('src'),
+    packages=find_packages('src'),
     package_dir={'': 'src'},
-    include_package_data = True,
-    namespace_packages = ['zc'],
-    install_requires = [
+    include_package_data=True,
+    namespace_packages=['zc'],
+    install_requires=[
         'zc.buildout',
         'setuptools',
         'six',
         'zc.recipe.egg',
         'ZConfig >=2.4'
     ],
-    extras_require = dict(test=tests_require),
-    entry_points = {
+    extras_require=dict(test=tests_require),
+    entry_points={
         'zc.buildout': [
              'server = %s:StorageServer' % name,
              ]
          },
-    classifiers = [
+    classifiers=[
         'Framework :: Buildout',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Zope Public License',
