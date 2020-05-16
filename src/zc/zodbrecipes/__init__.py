@@ -18,11 +18,11 @@ from ZConfig import ConfigurationSyntaxError
 import ZConfig.schemaless
 import logging
 import os
-import shutil
 import zc.buildout
 import zc.recipe.egg
 
 logger = logging.getLogger('zc.zodbrecipes')
+
 
 class StorageServer:
 
@@ -38,8 +38,8 @@ class StorageServer:
             options['log-directory'] = buildout[deployment]['log-directory']
             options['etc-directory'] = buildout[deployment]['etc-directory']
             logrotate = options.get('logrotate',
-                                    buildout[deployment].get('logrotate',''))
-            if logrotate.lower()=='false':
+                                    buildout[deployment].get('logrotate', ''))
+            if logrotate.lower() == 'false':
                 options['logrotate'] = ''
             else:
                 options['logrotate'] = os.path.join(
@@ -56,7 +56,7 @@ class StorageServer:
                 )
 
         options['scripts'] = ''
-        options['eggs'] = options.get('eggs','') + '\nzdaemon\nsetuptools'
+        options['eggs'] = options.get('eggs', '') + '\nzdaemon\nsetuptools'
         self.egg = zc.recipe.egg.Egg(buildout, name, options)
 
         options['runzeo'] = os.path.join(
@@ -146,7 +146,7 @@ class StorageServer:
             zeo_conf = ZConfig.schemaless.loadConfigFile(StringIO(zeo_conf))
         except ConfigurationSyntaxError as e:
             raise zc.buildout.UserError(
-                '%s in:\n%s' % (e,zeo_conf)
+                '%s in:\n%s' % (e, zeo_conf)
                 )
 
         zeo_section = [s for s in zeo_conf.sections if s.type == 'zeo']
@@ -155,7 +155,7 @@ class StorageServer:
         if len(zeo_section) > 1:
             raise zc.buildout.UserError('Too many zeo sections.')
         zeo_section = zeo_section[0]
-        if not 'address' in zeo_section:
+        if 'address' not in zeo_section:
             raise zc.buildout.UserError('No ZEO address was specified.')
 
         storages = [s.name or '1' for s in zeo_conf.sections
@@ -169,14 +169,15 @@ class StorageServer:
             zeo_conf.sections.append(event_log('STDOUT'))
 
         zdaemon_conf = options.get('zdaemon.conf', '')+'\n'
-        zdaemon_conf = ZConfig.schemaless.loadConfigFile(StringIO(zdaemon_conf))
+        zdaemon_conf = ZConfig.schemaless.loadConfigFile(
+            StringIO(zdaemon_conf))
 
         defaults = {
             'program': "%s -C %s" % (options['runzeo'], zeo_conf_path),
             'daemon': 'on',
             'transcript': event_log_path,
             'socket-name': socket_path,
-            'directory' : run_directory,
+            'directory': run_directory,
             }
         if deployment:
             defaults['user'] = options['user']
@@ -208,13 +209,13 @@ class StorageServer:
                 logger.warn(no_zdaemon % options['zdaemon'])
 
             contents = "%(zdaemon)s -C '%(conf)s' $*" % dict(
-                zdaemon = options['zdaemon'],
-                conf = zdaemon_conf_path,
+                zdaemon=options['zdaemon'],
+                conf=zdaemon_conf_path,
                 )
             if options.get('user'):
                 contents = 'su %(user)s -c \\\n  "%(contents)s"' % dict(
-                    user = options['user'],
-                    contents = contents,
+                    user=options['user'],
+                    contents=contents,
                     )
             contents = "#!/bin/sh\n%s\n" % contents
 
@@ -230,13 +231,13 @@ class StorageServer:
             zc.buildout.easy_install.scripts(
                 [(rc, 'zdaemon.zdctl', 'main')],
                 ws, options['executable'], options['rc-directory'],
-                arguments = ('['
-                             '\n        %r, %r,'
-                             '\n        ]+sys.argv[1:]'
-                             '\n        '
-                             % ('-C', zdaemon_conf_path,
-                                )
-                             ),
+                arguments=('['
+                           '\n        %r, %r,'
+                           '\n        ]+sys.argv[1:]'
+                           '\n        '
+                           % ('-C', zdaemon_conf_path,
+                              )
+                           ),
                 )
 
         if pack:
@@ -247,7 +248,7 @@ class StorageServer:
             else:
                 try:
                     port = int(address)
-                except:
+                except ValueError:
                     address = '-U '+address
                 else:
                     address = '-p '+address
@@ -273,6 +274,7 @@ class StorageServer:
 
     update = install
 
+
 no_runzeo = """
 A runzeo script couldn't be found at:
 
@@ -292,10 +294,12 @@ You may need to generate a zdaemon script using the
 zc.recipe.eggs:script recipe and the zdaemon egg.
 """
 
+
 def event_log(path, *data):
     return ZConfig.schemaless.Section(
         'eventlog', '', None,
         [ZConfig.schemaless.Section('logfile', '', dict(path=[path]))])
+
 
 logrotate_template = """%(logfile)s {
   rotate 5

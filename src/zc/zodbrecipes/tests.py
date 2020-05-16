@@ -15,15 +15,9 @@
 from zope.testing import renormalizing
 
 import doctest
-import os
-import pkg_resources
 import re
-import shutil
-import sys
-import tempfile
 import unittest
 import zc.buildout.testing
-import zope.testing
 
 try:
     from zc.buildout.testing import not_found
@@ -58,17 +52,16 @@ def setUp(test):
 checker = renormalizing.RENormalizing([
     zc.buildout.testing.normalize_path,
     (re.compile(
-    "Couldn't find index page for '[a-zA-Z0-9.]+' "
-    "\(maybe misspelled\?\)"
-    "\n"
-    ), ''),
+        r"Couldn't find index page for '[a-zA-Z0-9.]+' "
+        r"\(maybe misspelled\?\)"
+        "\n"), ''),
     (re.compile('#![^\n]+\n'), ''),
-    (re.compile('-\S+-py\d[.]\d(-\S+)?.egg'),
-     '-pyN.N.egg',
-    ),
+    (re.compile(r'-\S+-py\d[.]\d(-\S+)?.egg'),
+     '-pyN.N.egg',),
     not_found,
     setuptools_or_distribute,
     ])
+
 
 def test_suite():
     return unittest.TestSuite((
@@ -79,6 +72,3 @@ def test_suite():
             ),
 
         ))
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
