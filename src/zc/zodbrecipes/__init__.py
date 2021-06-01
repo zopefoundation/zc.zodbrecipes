@@ -53,7 +53,7 @@ class StorageServer:
             options['run-directory'] = os.path.join(
                 buildout['buildout']['parts-directory'],
                 self.name,
-                )
+            )
 
         options['scripts'] = ''
         options['eggs'] = options.get('eggs', '') + '\nzdaemon\nsetuptools'
@@ -62,17 +62,17 @@ class StorageServer:
         options['runzeo'] = os.path.join(
             buildout['buildout']['bin-directory'],
             options.get('runzeo', 'runzeo'),
-            )
+        )
 
         options['zdaemon'] = os.path.join(
             buildout['buildout']['bin-directory'],
             options.get('zdaemon', 'zdaemon'),
-            )
+        )
 
         options['zeopack'] = os.path.join(
             buildout['buildout']['bin-directory'],
             options.get('zeopack', 'zeopack'),
-            )
+        )
 
         if options.get('shell-script', '') not in ('true', 'false', ''):
             raise zc.buildout.UserError(
@@ -88,20 +88,20 @@ class StorageServer:
         deployment = self.deployment
         if deployment:
             zeo_conf_path = os.path.join(options['etc-directory'],
-                                         self.name+'-zeo.conf')
+                                         self.name + '-zeo.conf')
             zdaemon_conf_path = os.path.join(options['etc-directory'],
-                                             self.name+'-zdaemon.conf')
+                                             self.name + '-zdaemon.conf')
             event_log_path = os.path.join(options['log-directory'],
-                                          self.name+'-zeo.log')
+                                          self.name + '-zeo.log')
             socket_path = os.path.join(run_directory,
-                                       self.name+'-zdaemon.sock')
+                                       self.name + '-zdaemon.sock')
             rc = options['deployment-name'] + '-' + self.name
 
             options.created(
                 zeo_conf_path,
                 zdaemon_conf_path,
                 os.path.join(options['rc-directory'], rc),
-                )
+            )
 
             logrotate = options['logrotate']
             if logrotate:
@@ -109,7 +109,7 @@ class StorageServer:
                     logfile=event_log_path,
                     rc=os.path.join(options['rc-directory'], rc),
                     conf=zdaemon_conf_path,
-                    ))
+                ))
                 options.created(logrotate)
 
             pack = options.get('pack')
@@ -124,7 +124,7 @@ class StorageServer:
                 pack_path = os.path.join(
                     options['crontab-directory'],
                     "pack-%s-%s" % (options['deployment-name'], self.name),
-                    )
+                )
                 if not os.path.exists(options['zeopack']):
                     logger.warn("Couln'e find zeopack script, %r",
                                 options['zeopack'])
@@ -141,13 +141,13 @@ class StorageServer:
                 os.mkdir(run_directory)
             pack = pack_path = None
 
-        zeo_conf = options.get('zeo.conf', '')+'\n'
+        zeo_conf = options.get('zeo.conf', '') + '\n'
         try:
             zeo_conf = ZConfig.schemaless.loadConfigFile(StringIO(zeo_conf))
         except ConfigurationSyntaxError as e:
             raise zc.buildout.UserError(
                 '%s in:\n%s' % (e, zeo_conf)
-                )
+            )
 
         zeo_section = [s for s in zeo_conf.sections if s.type == 'zeo']
         if not zeo_section:
@@ -168,7 +168,7 @@ class StorageServer:
         if not [s for s in zeo_conf.sections if s.type == 'eventlog']:
             zeo_conf.sections.append(event_log('STDOUT'))
 
-        zdaemon_conf = options.get('zdaemon.conf', '')+'\n'
+        zdaemon_conf = options.get('zdaemon.conf', '') + '\n'
         zdaemon_conf = ZConfig.schemaless.loadConfigFile(
             StringIO(zdaemon_conf))
 
@@ -178,7 +178,7 @@ class StorageServer:
             'transcript': event_log_path,
             'socket-name': socket_path,
             'directory': run_directory,
-            }
+        }
         if deployment:
             defaults['user'] = options['user']
         runner = [s for s in zdaemon_conf.sections
@@ -211,12 +211,12 @@ class StorageServer:
             contents = "%(zdaemon)s -C '%(conf)s' $*" % dict(
                 zdaemon=options['zdaemon'],
                 conf=zdaemon_conf_path,
-                )
+            )
             if options.get('user'):
                 contents = 'su %(user)s -c \\\n  "%(contents)s"' % dict(
                     user=options['user'],
                     contents=contents,
-                    )
+                )
             contents = "#!/bin/sh\n%s\n" % contents
 
             dest = os.path.join(options['rc-directory'], rc)
@@ -238,7 +238,7 @@ class StorageServer:
                            % ('-C', zdaemon_conf_path,
                               )
                            ),
-                )
+            )
 
         if pack:
             address, = zeo_section['address']
@@ -249,9 +249,9 @@ class StorageServer:
                 try:
                     port = int(address)
                 except ValueError:
-                    address = '-U '+address
+                    address = '-U ' + address
                 else:
-                    address = '-p '+address
+                    address = '-p ' + address
             f = open(pack_path, 'w')
             if len(pack) == 7:
                 assert '@' in pack[6]
