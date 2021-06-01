@@ -60,7 +60,7 @@ checker = renormalizing.RENormalizing([
      '-pyN.N.egg',),
     not_found,
     setuptools_or_distribute,
-    ])
+])
 
 
 def test_suite():
@@ -69,6 +69,6 @@ def test_suite():
             'zeo.txt',
             setUp=setUp, tearDown=zc.buildout.testing.buildoutTearDown,
             checker=checker,
-            ),
+        ),
 
-        ))
+    ))

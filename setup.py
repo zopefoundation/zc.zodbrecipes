@@ -16,7 +16,7 @@ long_description = (
     + '\n' +
     'Download\n'
     '**********************\n'
-    )
+)
 
 tests_require = [
     'zdaemon',
@@ -26,7 +26,7 @@ tests_require = [
     'zope.proxy',
     'zope.testrunner',
     'zodbpickle',
-    ]
+]
 
 name = "zc.zodbrecipes"
 setup(
@@ -54,25 +54,26 @@ setup(
     extras_require=dict(test=tests_require),
     entry_points={
         'zc.buildout': [
-             'server = %s:StorageServer' % name,
-             ]
-         },
+            'server = %s:StorageServer' % name,
+        ]
+    },
     classifiers=[
-        'Framework :: Buildout',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: Zope Public License',
-        'Topic :: Software Development :: Build Tools',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-
         "Natural Language :: English",
-        "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        ],
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Programming Language :: Python",
+        'Framework :: Buildout',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Zope Public License',
+        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
     test_suite='zc.zodbrecipes.tests.test_suite',
-    tests_require=tests_require,
-    )
+)
