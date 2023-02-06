@@ -20,11 +20,7 @@ import zc.buildout.testing
 from zope.testing import renormalizing
 
 
-try:
-    from zc.buildout.testing import not_found
-except ImportError:
-    not_found = (re.compile(r'Not found: [^\n]+/(\w|\.)+/\r?\n'), '')
-
+not_found = (re.compile(r'Not found: [^\n]+/(\w|\.)+/\r?\n'), '')
 setuptools_or_distribute = (
     re.compile(r"[d-]  (setuptools|distribute)-"), "setuptools-")
 
@@ -36,7 +32,6 @@ def setUp(test):
     zc.buildout.testing.install('ZEO', test)
     zc.buildout.testing.install('ZODB', test)
     zc.buildout.testing.install('persistent', test)
-    zc.buildout.testing.install('six', test)
     zc.buildout.testing.install('transaction', test)
     zc.buildout.testing.install('zc.lockfile', test)
     zc.buildout.testing.install('zc.recipe.egg', test)

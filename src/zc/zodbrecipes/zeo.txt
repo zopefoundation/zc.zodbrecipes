@@ -30,8 +30,7 @@ to import the schema definition that defined the foo section.  Any
 imports are simply copied to the generated configuration file.  When
 we run the buildout:
 
-    >>> from six import print_
-    >>> print_(system(buildout), end='') # doctest: +NORMALIZE_WHITESPACE
+    >>> print(system(buildout), end='') # doctest: +NORMALIZE_WHITESPACE
     Installing server.
     zc.zodbrecipes:
     A runzeo script couldn't be found at:
@@ -71,7 +70,7 @@ zc.recipe.egg:script recipe:
     ...    </foo>
     ... ''')
 
-    >>> print_(system(buildout), end='') # doctest: +ELLIPSIS
+    >>> print(system(buildout), end='') # doctest: +ELLIPSIS
     Installing zodb...
     Generated script '/sample-buildout/bin/runzeo'...
     Updating server.
@@ -137,7 +136,7 @@ If we wish, we can specify a log file ourselves:
     ...    </eventlog>
     ... ''')
 
-    >>> print_(system(buildout), end='')
+    >>> print(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -187,7 +186,7 @@ But we'll stick with the default:
     ...    </foo>
     ... ''')
 
-    >>> print_(system(buildout), end='')
+    >>> print(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -266,7 +265,7 @@ zdaemon script:
     ...    </foo>
     ... ''')
 
-    >>> print_(system(buildout), end='')
+    >>> print(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -361,7 +360,7 @@ buildout:
     ... user = bob
     ... ''' % globals())
 
-    >>> print_(system(buildout), end='')
+    >>> print(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -477,7 +476,7 @@ in your deployment section to prevent the logrotate config being generated:
     ... user = bob
     ... ''' % globals())
 
-    >>> print_(system(buildout), end='')
+    >>> print(system(buildout), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -525,7 +524,7 @@ If it's more convenient, this can be placed in the [server] section instead:
     ... user = bob
     ... ''' % globals())
 
-    >>> print_(system(buildout), end='')
+    >>> print(system(buildout), end='')
     Updating zodb.
     Updating server.
 
@@ -580,7 +579,7 @@ Let's add a pack option:
     ... user = bob
     ... ''' % globals())
 
-    >>> print_(system(buildout+' -D'), end='')
+    >>> print(system(buildout+' -D'), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -673,7 +672,7 @@ MAILTO variable will be added to the cron file:
     ... user = bob
     ... ''' % globals())
 
-    >>> print_(system(buildout+' -D'), end='')
+    >>> print(system(buildout+' -D'), end='')
     Uninstalling server.
     Updating zodb.
     Installing server.
@@ -739,7 +738,7 @@ value. We also need to cause a zdaemon script to be generated:
     ... user = bob
     ... ''' % globals())
 
-    >>> print_(system(buildout+' -D'), end='')
+    >>> print(system(buildout+' -D'), end='')
     Uninstalling server.
     Updating zodb.
     Installing zdaemon.
@@ -799,7 +798,7 @@ parts. These names determine names of files generated.
     ... user = bob
     ... ''' % globals())
 
-    >>> print_(system(buildout+' -D'), end='')
+    >>> print(system(buildout+' -D'), end='')
     Uninstalling server.
     Updating zodb.
     Updating zdaemon.
@@ -840,7 +839,7 @@ simple, informative message being returned:
     ...    nothing useful
     ... ''')
 
-    >>> print_(system(buildout+' -q'), end='')
+    >>> print(system(buildout+' -q'), end='')
     Couldn't clean up '/sample-buildout/bin/server'.
     While:
       Installing server.
@@ -863,7 +862,7 @@ text and the message from the error:
     ... zeo.conf = <bad
     ... ''')
 
-    >>> print_(system(buildout+' -q'), end='')
+    >>> print(system(buildout+' -q'), end='')
     Couldn't clean up '/sample-buildout/bin/server'.
     While:
       Installing server.

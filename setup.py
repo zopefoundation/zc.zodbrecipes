@@ -46,10 +46,10 @@ setup(
     package_dir={'': 'src'},
     include_package_data=True,
     namespace_packages=['zc'],
+    python_requires='>=3.7',
     install_requires=[
         'zc.buildout',
         'setuptools',
-        'six',
         'zc.recipe.egg',
         'ZConfig >=2.4'
     ],
