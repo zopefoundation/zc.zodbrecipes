@@ -12,12 +12,13 @@
 #
 ##############################################################################
 
-from zope.testing import renormalizing
-
 import doctest
 import re
 import unittest
+
 import zc.buildout.testing
+from zope.testing import renormalizing
+
 
 try:
     from zc.buildout.testing import not_found

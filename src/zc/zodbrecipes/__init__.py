@@ -12,14 +12,16 @@
 #
 ##############################################################################
 
-from six.moves import cStringIO as StringIO
-from ZConfig import ConfigurationSyntaxError
-
-import ZConfig.schemaless
 import logging
 import os
+
+from six.moves import cStringIO as StringIO
+
 import zc.buildout
 import zc.recipe.egg
+import ZConfig.schemaless
+from ZConfig import ConfigurationSyntaxError
+
 
 logger = logging.getLogger('zc.zodbrecipes')
 
