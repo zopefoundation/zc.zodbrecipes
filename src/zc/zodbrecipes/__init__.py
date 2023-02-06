@@ -12,14 +12,15 @@
 #
 ##############################################################################
 
-from six.moves import cStringIO as StringIO
-from ZConfig import ConfigurationSyntaxError
-
-import ZConfig.schemaless
 import logging
 import os
+from io import StringIO
+
 import zc.buildout
 import zc.recipe.egg
+import ZConfig.schemaless
+from ZConfig import ConfigurationSyntaxError
+
 
 logger = logging.getLogger('zc.zodbrecipes')
 
@@ -123,7 +124,7 @@ class StorageServer:
                         'Too many values in pack option')
                 pack_path = os.path.join(
                     options['crontab-directory'],
-                    "pack-%s-%s" % (options['deployment-name'], self.name),
+                    "pack-{}-{}".format(options['deployment-name'], self.name),
                 )
                 if not os.path.exists(options['zeopack']):
                     logger.warn("Couln'e find zeopack script, %r",
@@ -146,7 +147,7 @@ class StorageServer:
             zeo_conf = ZConfig.schemaless.loadConfigFile(StringIO(zeo_conf))
         except ConfigurationSyntaxError as e:
             raise zc.buildout.UserError(
-                '%s in:\n%s' % (e, zeo_conf)
+                '{} in:\n{}'.format(e, zeo_conf)
             )
 
         zeo_section = [s for s in zeo_conf.sections if s.type == 'zeo']
@@ -173,7 +174,7 @@ class StorageServer:
             StringIO(zdaemon_conf))
 
         defaults = {
-            'program': "%s -C %s" % (options['runzeo'], zeo_conf_path),
+            'program': "{} -C {}".format(options['runzeo'], zeo_conf_path),
             'daemon': 'on',
             'transcript': event_log_path,
             'socket-name': socket_path,
@@ -244,7 +245,7 @@ class StorageServer:
             address, = zeo_section['address']
             if ':' in address:
                 host, port = address.split(':')
-                address = '-h %s -p %s' % (host, port)
+                address = '-h {} -p {}'.format(host, port)
             else:
                 try:
                     port = int(address)
@@ -263,7 +264,7 @@ class StorageServer:
                 days = 1
 
             for storage in storages:
-                f.write("%s %s %s %s -S %s -d %s\n" % (
+                f.write("{} {} {} {} -S {} -d {}\n".format(
                         ' '.join(pack), options['user'],
                         options['zeopack'], address, storage, days,
                         ))
