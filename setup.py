@@ -9,7 +9,9 @@ def read(*rnames):
 
 
 long_description = (
-    read('README.txt')
+    read('README.rst')
+    + '\n' +
+    read('CHANGES.rst')
     + '\n' +
     'Detailed Documentation\n'
     '**********************\n'
@@ -33,7 +35,7 @@ tests_require = [
 name = "zc.zodbrecipes"
 setup(
     name=name,
-    version='2.1.0.dev0',
+    version='3.0.dev0',
     author="Jim Fulton",
     author_email="jim@zope.com",
     description="ZC Buildout recipes for ZODB",
