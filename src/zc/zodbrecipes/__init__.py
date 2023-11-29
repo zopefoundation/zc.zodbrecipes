@@ -222,7 +222,8 @@ class StorageServer:
             contents = "#!/bin/sh\n%s\n" % contents
 
             dest = os.path.join(options['rc-directory'], rc)
-            if not (os.path.exists(dest) and Path(dest).read_text() == contents):
+            if not (os.path.exists(dest) and
+                    Path(dest).read_text() == contents):
                 Path(dest).write_text(contents)
                 os.chmod(dest, 0o755)
                 logger.info("Generated shell script %r.", dest)
