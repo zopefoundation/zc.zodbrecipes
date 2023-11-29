@@ -15,6 +15,7 @@
 import logging
 import os
 from io import StringIO
+from pathlib import Path
 
 import zc.buildout
 import zc.recipe.egg
@@ -106,7 +107,7 @@ class StorageServer:
 
             logrotate = options['logrotate']
             if logrotate:
-                open(logrotate, 'w').write(logrotate_template % dict(
+                Path(logrotate).write_text(logrotate_template % dict(
                     logfile=event_log_path,
                     rc=os.path.join(options['rc-directory'], rc),
                     conf=zdaemon_conf_path,
@@ -202,8 +203,8 @@ class StorageServer:
         self.egg.install()
         requirements, ws = self.egg.working_set()
 
-        open(zeo_conf_path, 'w').write(str(zeo_conf))
-        open(zdaemon_conf_path, 'w').write(str(zdaemon_conf))
+        Path(zeo_conf_path).write_text(str(zeo_conf))
+        Path(zdaemon_conf_path).write_text(str(zdaemon_conf))
 
         if options.get('shell-script') == 'true':
             if not os.path.exists(options['zdaemon']):
@@ -221,8 +222,8 @@ class StorageServer:
             contents = "#!/bin/sh\n%s\n" % contents
 
             dest = os.path.join(options['rc-directory'], rc)
-            if not (os.path.exists(dest) and open(dest).read() == contents):
-                open(dest, 'w').write(contents)
+            if not (os.path.exists(dest) and Path(dest).read_text() == contents):
+                Path(dest).write_text(contents)
                 os.chmod(dest, 0o755)
                 logger.info("Generated shell script %r.", dest)
 
