@@ -4,7 +4,7 @@ Changes
 3.1 (unreleased)
 ================
 
-- Nothing changed yet.
+- Modify read/write operations to use Path() to avoid dangling file handles
 
 
 3.0 (2023-02-07)
