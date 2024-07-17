@@ -148,7 +148,7 @@ class StorageServer:
             zeo_conf = ZConfig.schemaless.loadConfigFile(StringIO(zeo_conf))
         except ConfigurationSyntaxError as e:
             raise zc.buildout.UserError(
-                '{} in:\n{}'.format(e, zeo_conf)
+                f'{e} in:\n{zeo_conf}'
             )
 
         zeo_section = [s for s in zeo_conf.sections if s.type == 'zeo']
@@ -247,7 +247,7 @@ class StorageServer:
             address, = zeo_section['address']
             if ':' in address:
                 host, port = address.split(':')
-                address = '-h {} -p {}'.format(host, port)
+                address = f'-h {host} -p {port}'
             else:
                 try:
                     port = int(address)
