@@ -38,7 +38,7 @@ setup(
     name=name,
     version='3.2.dev0',
     author="Jim Fulton",
-    author_email="jim@zope.com",
+    author_email="zope-dev@zope.dev",
     description="ZC Buildout recipes for ZODB",
     license="ZPL 2.1",
     keywords="zodb buildout",
