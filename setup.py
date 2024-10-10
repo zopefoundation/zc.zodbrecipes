@@ -36,7 +36,7 @@ tests_require = [
 name = "zc.zodbrecipes"
 setup(
     name=name,
-    version='3.1',
+    version='3.2.dev0',
     author="Jim Fulton",
     author_email="jim@zope.com",
     description="ZC Buildout recipes for ZODB",
