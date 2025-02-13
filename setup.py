@@ -23,16 +23,6 @@ long_description = (
     '**********************\n'
 )
 
-tests_require = [
-    'zdaemon',
-    'ZEO',
-    'zope.event',
-    'zope.testing',
-    'zope.proxy',
-    'zope.testrunner',
-    'zodbpickle',
-]
-
 name = "zc.zodbrecipes"
 setup(
     name=name,
@@ -40,7 +30,7 @@ setup(
     author="Jim Fulton",
     author_email="zope-dev@zope.dev",
     description="ZC Buildout recipes for ZODB",
-    license="ZPL 2.1",
+    license="ZPL-2.1",
     keywords="zodb buildout",
     url='https://github.com/zopefoundation/zc.zodbrecipes',
     long_description=long_description,
@@ -49,14 +39,22 @@ setup(
     package_dir={'': 'src'},
     include_package_data=True,
     namespace_packages=['zc'],
-    python_requires='>=3.8',
+    python_requires='>=3.9',
     install_requires=[
         'zc.buildout',
         'setuptools',
         'zc.recipe.egg',
         'ZConfig >=2.4'
     ],
-    extras_require=dict(test=tests_require),
+    extras_require=dict(test=[
+        'zdaemon',
+        'ZEO',
+        'zope.event',
+        'zope.testing',
+        'zope.proxy',
+        'zope.testrunner',
+        'zodbpickle',
+    ]),
     entry_points={
         'zc.buildout': [
             'server = %s:StorageServer' % name,
@@ -65,7 +63,6 @@ setup(
     classifiers=[
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
@@ -80,5 +77,4 @@ setup(
         'Topic :: Software Development :: Build Tools',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    test_suite='zc.zodbrecipes.tests.test_suite',
 )
